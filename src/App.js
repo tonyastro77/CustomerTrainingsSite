@@ -7,6 +7,7 @@ import './Navigator';
 import Navigator from './Navigator';
 
 
+
 class App extends Component {
   render() {
     return (
@@ -19,10 +20,8 @@ class App extends Component {
               <Route path="/trainings" render={() => <Trainings />} />
               <Route render={() => <h1>Page not found</h1>} />    
             </Switch>
-          </div>
-          
-        </BrowserRouter>
-        
+          </div>        
+        </BrowserRouter>      
       </div>
     );
   }
