@@ -8,6 +8,7 @@ import EditCustomer from './EditCustomer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import 'semantic-ui-css/semantic.min.css';
 
 
 class CustomerList extends Component {
@@ -126,6 +127,7 @@ class CustomerList extends Component {
             <AppBar position="static">
               <Toolbar>
                 <Typography variant="h6" color="inherit">
+                <i class="user icon"></i>
                   Customers list
                 </Typography>
               </Toolbar>

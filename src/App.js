@@ -5,6 +5,7 @@ import Trainings from './Components/Trainings';
 import './App.css';
 import './Navigator';
 import Navigator from './Navigator';
+import Calendar from 'react-calendar';
 
 
 
@@ -18,6 +19,7 @@ class App extends Component {
             <Switch>
               <Route exact path="/" component={CustomerList} />
               <Route path="/trainings" render={() => <Trainings />} />
+              <Route path="/calendar" render={() => <Calendar />} />
               <Route render={() => <h1>Page not found</h1>} />    
             </Switch>
           </div>        

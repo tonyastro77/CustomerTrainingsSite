@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import 'semantic-ui-css/semantic.min.css';
 
 
 class EditCustomer extends Component {
@@ -83,7 +84,7 @@ class EditCustomer extends Component {
                     </Button>
                 </DialogActions>
             </Dialog>
-            <Button color="primary" onClick={this.handleClickOpen}>Edit</Button>
+            <Button color="primary" onClick={this.handleClickOpen}><i class="edit icon"></i>Edit</Button>
          
       </div>
     );
