@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import fire from './Config/Fire';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'semantic-ui-css/semantic.min.css';
 
 
 class Navigator extends Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+}
+
+logout(){
+    fire.auth().signOut();
+}
   render() {
     return (
       <div>
@@ -21,7 +30,11 @@ class Navigator extends Component {
                   <li className="nav-item">
                     <Link className="nav-link" to="/calendar"><i class="calendar alternate outline icon"></i>Calendar</Link>{' '}
                   </li>
+                  
               </ul>
+              <form class="form-inline my-2 my-lg-0">>
+                    <button class="btn btn-light my-2 my-sm-0" onClick={this.logout}><i class="sign out alternate icon"></i>Logout</button>
+              </form>
           </div>
             
             

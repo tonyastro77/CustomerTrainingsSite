@@ -1,29 +1,43 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import CustomerList from './Components/CustomerList';
-import Trainings from './Components/Trainings';
+import fire from './Config/Fire';
+import Login from './Login';
+import Home from './Home';
+
 import './App.css';
 import './Navigator';
-import Navigator from './Navigator';
-import Calendar from 'react-calendar';
+
+
 
 
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
+
+  componentDidMount(){
+    this.authListener();
+  }
+
+  authListener() {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({user});
+      }
+      else {
+        this.setState({user: null});
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <BrowserRouter>
-          <div>
-            <Navigator />
-            <Switch>
-              <Route exact path="/" component={CustomerList} />
-              <Route path="/trainings" render={() => <Trainings />} />
-              <Route path="/calendar" render={() => <Calendar />} />
-              <Route render={() => <h1>Page not found</h1>} />    
-            </Switch>
-          </div>        
-        </BrowserRouter>      
+    {this.state.user ? (<Home />) : (<Login/>)}
+           
       </div>
     );
   }

@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 
 
 const styles = theme => ({
@@ -73,13 +74,14 @@ class AddTraining extends Component {
     }
 
 render() {
-  const {classes} = this.props;
-  console.log(this.state.customerList );
-  
-  const {selectedOption} = this.state;
-  var customerRetrieval = () => this.state.customerList.map((c,i) => 
-    (<option key={i} value={c.links[1].href}>{c.lastname + ', ' + c.firstname}</option>)
-    )
+    const {classes} = this.props;
+    var customerRetrieval = () => this.state.customerList.map((c,i) => 
+      (<option key={i} value={c.links[1].href}>{c.lastname + ', ' + c.firstname}</option>)
+      );
+
+    var someDate = new Date();
+    var today = moment(someDate.setDate(someDate.getDate())).format("YYYY-MM-DD");
+    
   return (
     <div>
       <Dialog
@@ -94,11 +96,20 @@ render() {
                 Choose the details of the training. Click on 'Save' in order to save the new training or 'Cancel' otherwise.
               </DialogContentText>
               <FormControl className={classes.formControl}>
-                <TextField onChange={this.inputChanged} type="date" margin="dense" name="date" label="Date" defaultValue="2019-05-08" fullWidth />
+                <TextField  onChange={this.inputChanged} 
+                            type="date" 
+                            margin="dense" 
+                            name="date" 
+                            label="Date" 
+                            defaultValue={today} 
+                            InputLabelProps={{
+                              shrink: true,
+                            }} 
+                />
               </FormControl>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="duration-simple">Duration</InputLabel>
-                <Select value={this.state.duration} onChange={this.handleChange('duration')} input={<Input id="duration-simple"/>}>
+                <InputLabel htmlFor="duration-native-simple">Duration</InputLabel>
+                <Select value={this.state.duration} onChange={this.handleChange('duration')} input={<Input id="duration-native-simple"/>}>
                   <option value={15}>15</option>
                   <option value={20}>20</option>
                   <option value={25}>25</option>
@@ -114,8 +125,8 @@ render() {
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="activity-simple">Activity</InputLabel>
-                <Select value={this.state.activity} onChange={this.inputChanged} name="activity" input={<Input id="activity-simple"/>}>
+              <InputLabel htmlFor="activity-native-simple">Activity</InputLabel>
+                <Select value={this.state.activity} onChange={this.inputChanged} name="activity" input={<Input id="activity-native-simple"/>}>
                   <option value={"Fitness"}>Fitness</option>
                   <option value={"Gym training"}>Gym training</option>                   
                   <option value={"Jogging"}>Jogging</option>
