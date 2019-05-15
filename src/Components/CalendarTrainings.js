@@ -12,13 +12,7 @@ import Typography from '@material-ui/core/Typography';
 class CalendarTrainings extends Component {
     constructor(props){
         super(props);
-        this.state = ({trainings: [], events: [
-          {
-            start: '',
-            end: '',
-            title: ''
-          }
-        ]})
+        this.state = ({trainings: [], events: []})
     };
 
     componentDidMount() {
@@ -27,17 +21,29 @@ class CalendarTrainings extends Component {
 
     loadCustomers = () => {
         fetch('https://customerrest.herokuapp.com/api/trainings')
-        .then(response => response.json())
-        .then(jsondata => this.setState({trainings : jsondata.content}))
-        .catch(err => console.error(err))
+        .then(Response => Response.json())
+        .then(data => {
+            let evts = data.content;
+            for (let i = 0; i < evts.length; i++) {
+                evts[i].start = moment(evts[i].date).toDate();
+                evts[i].end = moment(evts[i].date).toDate();
+                evts[i].title = evts[i].activity;
+                this.state.trainings.push(evts[i])
+            }
+            this.setState({
+              trainings: evts,
+                prevEvents: evts
+            })
+        })
+        .then(() => {
+          this.setState({
+            events: [...this.state.trainings]
+        })  
+      }).catch(err => console.error(err));
     }
 
   render() {
     const localizer = BigCalendar.momentLocalizer(moment);
-
-    let allViews = Object.keys(this.state.trainings).map(i => this.state.trainings[i]);
-
-    console.log(allViews );  
 
     return (
       <div className="App">
@@ -53,9 +59,7 @@ class CalendarTrainings extends Component {
           localizer={localizer}
           defaultDate={new Date()}
           defaultView="month"
-          events={allViews}
-          startaccessor= {(event) => {return moment(event.date)}}
-          titleaccessor= {(event) => {return event.activity}}
+          events={this.state.events}
           style={{ height: "50vh" }}
         />
       </div>
